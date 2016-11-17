@@ -10,7 +10,7 @@
 
 >对于水平inline元素
 
-- 水平pingging影响尺寸，垂直padding不影响尺寸（但是会影响背景色占据空间）
+- 水平padding影响尺寸，垂直padding不影响尺寸（但是会影响背景色占据空间）
 - 百分比值相对于宽度，默认的高度宽度细节有所差异，padding会断行
 - 设置padding:50%形成正方形的前提是font-size:0(因为inline的垂直padding会出现空白)
 
@@ -57,6 +57,42 @@ span{
 
 ##margin
 ##absolute
+>特性
+
+- 包裹性
+- 破坏性
+- 越独立越强大
+  - 没有relative的情况下可以超越overflow的限制
+  - absolute与float类似，relative与clear类似
+  
+>在不使用具体定位值的情况下（包括auto）
+
+- 脱离文档流
+- 去浮动（浮动不起效）
+- 位置跟随（原来什么位置绝对定位后就是什么位置）
+  - ！！绝对定位元素与前面的同辈元素之间不能有空格（可以用<!---->&nbsp代替），否则会错位
+  - 例子：1.图片、图标覆盖。2.下拉框提示
+  - chrome浏览器下绝对定位后再改变display就不会再渲染（一次渲染？）
+  - ie7浏览器下永远display:inline-block化（解决：套一个div）
+- !配合margin精确定位（可用负值）兼容ie6
+
+>技巧
+
+- left,right等对立出现时会拉伸
+- 如height:100%;width:100%;相当于absolute;top:0;left:0;right:0;bottom:0;(ie7+)
+- 容器无需固定 width/height值，内部元素亦可拉伸；
+  容器拉伸，内部元素支持百分比width/height值；
+- 如果拉伸和width/height尺寸同时存在  
+  width/height设置的尺寸> left/top/right/bottom拉伸的尺寸
+ 
+>与z-index的关系
+
+-  如果只有一个绝对定位元素，自然不需要z-index，自动覆盖普通元素；
+- 如果两个绝对定位，控制DOM流的前后顺序达到需要的覆盖效果，依然无z-index；
+- 如果多个绝对定位交错，非常非常少见，z-index：1控制；
+- 如果非弹框类的绝对定位元素z-index>2, 必定z-index冗余，请优化！
+
+
 ##z-index
 >特性
 
