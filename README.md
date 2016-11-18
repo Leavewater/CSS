@@ -142,7 +142,29 @@ span{
   - 正负值相加
   - 负负取最负
   
+
+> margin负值
+
+- 如果浮动元素有margin负值，会重叠到上一个浮动元素上面。
   
+> margin失效情形
+
+- inline水平元素的垂直margin无效
+  - 前提是inline是非替换元素
+  - 正常书写模式（不是writing-mode或者direction）
+  - margin重叠
+- display:table-cell与margin
+  - table-cell与table-row等声明的margin无效
+- 绝对定位与margin
+  - 绝对定位元素非定位的margin值“无效”-----指的是绝对定位的margin值一直是有效的  
+    只是不像普通元素那样，可以和兄弟元素作用（父元素设置relative，就能体现出来）
+- 鞭长莫及导致的margin无效
+- 内联特性导致的margin无效
+  margin负值小到一定程度就失效了，（如img）原因是内联元素的排版，要与文字对齐特性限制了
+- margin-start
+  - 正常流情况下margin-start与margin-left作用相等，两者重叠不累加；
+  - 如果水平流是从右向左的，margin-start相当于margin-right;
+  - 垂直流情况下margin-start相当于margin-top
 
 ##absolute
 >特性
@@ -243,3 +265,9 @@ span{
 - 只能限制fixed的层级
 
 >提高元素的层叠上下文 "Madoko reference manual"
+
+##overflow
+
+- overflow-x和overflow-y;
+  - 其中一个设置了hidden,另一个是visible，则另一个自动变成auto
+
