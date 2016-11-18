@@ -1,4 +1,26 @@
 # CSS学习笔记
+##float
+> 特性
+
+- 包裹性
+  - 元素block水平化
+- 破坏性
+  - 去除button之间的空格
+
+> IE7兼容性
+
+1. 含clear的浮动元素包裹不正确的问题；
+2. 浮动元素倒数2个莫名垂直间距问题；
+3. 浮动元素最后一个字符重复问题；
+4. 浮动元素楼梯排列问题；
+5. 浮动元素和文本不在同一行的问题；
+
+- 清除浮动
+
+```
+.clearfix:after { content: ''; display: table; clear: both; }
+.clearfix { *zoom: 1; }
+```
 ##padding
 
 >对于块状元素设置padding 
@@ -56,6 +78,72 @@ span{
  ```
 
 ##margin
+> 元素尺寸
+
+-  可视尺寸(clientWidth)
+  - 适用于没有设定width/height的普通block水平元素（不包括浮动、绝对定位元素、inline、table-cell...）；
+  - 只适用于水平方向尺寸
+-  占据尺寸(outerWidth)
+  - block水平和inline-block水平元素均适用
+  - 与有没有设定width/height值无关
+  - 适用于水平方向和垂直方向
+
+> 定宽高居中
+
+`
+  .father{
+	height: 200px;
+	position: relative;
+}
+.son{
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	width: 500px;
+	height: 100px;
+	margin: auto;
+}
+`
+
+> 百分比值
+
+- 普通元素margin的百分比值都是相对于容器的宽度计算的
+- 绝对定位元素margin的百分比值是相对于第一个定位祖先元素的宽度计算的
+
+> margin重叠通常特性
+
+1. block水平元素（不包括float和absolute元素）
+2. 不考虑writing-mode,只发生在垂直方向
+
+>重叠3种情形
+
+1. 相邻的兄弟元素
+2. 父级第一个/最后一个子元素（重叠条件）
+  1. margin-top重叠
+    - 父元素非块状格式化上下文元素（overflow:hidden等）
+    - 父元素没有border-top值
+    - 父元素没有padding-top值
+    - 父元素与第一个元素间没有inline元素分割（&nbsp）
+  2. margin-bottom重叠
+    - 父元素非块状格式化上下文元素
+    - 父元素没有border-bottom值
+    - 父元素没有padding-bottom值
+    - 父元素与最后一个元素间没有inline元素分割
+    - 父元素没有height、min-height、max-height限制
+3. 空block元素margin重叠条件
+  - 元素没有border设置
+  - 元素没有padding设置
+  - 里面没有inline元素
+  - 没有height或min-height
+4. 重叠的计算规则
+  - 正正取大值
+  - 正负值相加
+  - 负负取最负
+  
+  
+
 ##absolute
 >特性
 
@@ -154,4 +242,4 @@ span{
 
 - 只能限制fixed的层级
 
->提高元素的层叠上下文
+>提高元素的层叠上下文 "Madoko reference manual"
