@@ -273,13 +273,16 @@ span{
   - overflow-x和overflow-y值不相等，其中一个设置了hidden、auto、scroll,另一个是visible，则另一个重置为auto
   
 > 起作用的前提
+
 - 非display:inlnie水平
 - 对应方位的尺寸限制width/height/max-width/max/height/absolute限制  
 - 对应单元格td等，还需要table为table-layout:fixed状态才行
 - ie7下button元素文字越多左右padding越大（解决方案只要加上overflow:visible就行）
 
 > 各个浏览器滚动条长度、外表不一样
+
 > ie7子元素100%会出现滚动条
+
 > 出现条件：
 
 - 值为auto/scroll，html(!!非body)、textarea天生自带滚动条
