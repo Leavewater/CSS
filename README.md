@@ -273,16 +273,13 @@ span{
   - overflow-x和overflow-y值不相等，其中一个设置了hidden、auto、scroll,另一个是visible，则另一个重置为auto
   
 > 起作用的前提
-
 - 非display:inlnie水平
 - 对应方位的尺寸限制width/height/max-width/max/height/absolute限制  
 - 对应单元格td等，还需要table为table-layout:fixed状态才行
 - ie7下button元素文字越多左右padding越大（解决方案只要加上overflow:visible就行）
 
 > 各个浏览器滚动条长度、外表不一样
-
 > ie7子元素100%会出现滚动条
-
 > 出现条件：
 
 - 值为auto/scroll，html(!!非body)、textarea天生自带滚动条
@@ -361,3 +358,57 @@ span{
 
 > 选项卡技术（适用于单页应用）
 
+##vertical-align
+
+> 属性值
+
+- 线类
+  - baseline,top,middle,bottom
+- 文本类
+  - text-top、text-bottom
+- 上标下标类
+  - sub、super
+- 数值百分比类
+  - px、em、%...
+  - 带数值
+  - 支持负值
+  - 行为表现一致
+  - 相对于baseline上下偏移
+  - 百分比值相对于line-height计算的（ie6/7不支持小数行高）
+  
+- vertical起作用前提
+  - 作用于inline水平和table-cell元素（默认状态下的图片、按钮、文字、表格）
+  - ie7下，折行才能出效果，如（p img <!-空格> /p）
+  - 图片去空格，line-height:0,且vertival-align:bottom/top;
+  
+> 对齐
+
+- 如果inline-boxes内没有内联元素，则对齐方式为margin下边缘
+- 图片完全居中，font-size要设置为0
+  
+##line-height
+
+> 行内框盒子模型
+
+  1.  “内容区域”（content area）是一种环绕文字看不见的盒子;内容区域大小与font-size大小相关
+  2.  “内联盒子”（inline boxes），“内联盒子”不会让内容成块显示，而是排成一行。如果外部含inline
+     水平的标签（span,a,em等），则属于“内联盒子”。如果是个光秃秃的文字，则属于“匿名内联盒子”
+  3. “行框盒子”（line boxes）,每一行就是一个“行框盒子”，每个“行框盒子”又是一个一个“内联盒子”（inline boxes）组成
+  4. p标签所在的“包含盒子”（containing box）,此盒子由一行一行的“行框盒子”（line boxes）组成
+  
+
+> 高度
+
+  - content area（内容区域高度）+vertical spacing（行间距）= line-height（行高）
+  - content area高度只与font-size以及font-family有关，与lnie-height没有任何关系
+  - 在simsun字体下，内容区域高度等于文字大小值
+
+> 计算规则
+
+- 数值（没单位）或者百分比时相对于字体大小
+- line-height:1.5 所有可继承元素根据font-size重计算行高
+- line-height:150%/1.5em 当前元素根据font-size计算行高，继承给下面的元素
+
+> 全局数值行高
+
+- font-size:14px; line-height:1.4286;
