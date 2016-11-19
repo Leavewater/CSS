@@ -268,6 +268,93 @@ span{
 
 ##overflow
 
-- overflow-x和overflow-y;
-  - 其中一个设置了hidden,另一个是visible，则另一个自动变成auto
+- overflow-x和overflow-y(IE8+);
+  - overflow-x和overflow-y值相等，则等同于overflow
+  - overflow-x和overflow-y值不相等，其中一个设置了hidden、auto、scroll,另一个是visible，则另一个重置为auto
+  
+> 起作用的前提
+- 非display:inlnie水平
+- 对应方位的尺寸限制width/height/max-width/max/height/absolute限制  
+- 对应单元格td等，还需要table为table-layout:fixed状态才行
+- ie7下button元素文字越多左右padding越大（解决方案只要加上overflow:visible就行）
+
+> 各个浏览器滚动条长度、外表不一样
+> ie7子元素100%会出现滚动条
+> 出现条件：
+
+- 值为auto/scroll，html(!!非body)、textarea天生自带滚动条
+- ie7默认html(overflow-y:hidden),ie8默认html(overflow:auto)
+
+> js与滚动高度
+
+- chrome浏览器下：document.body.scrollTop;
+- 其它浏览器下：document.documentElement.scrollTop;
+- 因此滚动高度=document.body.scrollTop||document.documentElement.scrollTop
+
+> padding-bottom缺失
+
+- chrome浏览器下，容器的padding-bottom不会缺失，其它浏览器下会缺失
+
+> 滚动条会占用浏览器的宽度和高度
+
+- 一般各浏览器的滚动条宽度均为17px
+
+> 水平居中跳动问题修复
+
+1. html(overflow:scroll)ie8以下
+2. container(padding-left:calc(100vw-100%))
+
+>触发bfc:
+
+- auto、scroll、hidden
+- 清除浮动的影响（ie7+）
+- 避免margin穿透问题
+- 两栏自适应布局（可以给浮动的加margin）
+  ```
+    .cell{
+      display:table-cell;width:2000px;
+      *display:inline-block;*width:auto;(IE7伪特性)
+    }
+    ```
+- overflow:hidden;自适应，但溢出不可见，限制应用场景
+- float+float,包裹性+破坏性，无法自适应，块状浮动布局
+- absolute，脱离文档流
+- display:inline-block,包裹性，无法自适应；ie6,ie7不识别
+- table-cell，包裹性，但天生无溢出特性，绝对宽度也能自适应
+
+> 失效
+
+- 当overflow在绝对定位元素及其包含块（含position:absolute/fixed/relative声明的父级元素,没有则默认body）之间的时候
+
+> 避免失效方法
+
+- overflow元素自身为包含块
+- overflow元素的子元素为包含块（子元素自身加一个div，relative）
+- 任意合法transform声明当做包含块
+  - overflow元素自身transform,只有ie9+/firefox支持
+  - overflow子元素transform,都支持
+  
+
+> resize属性
+
+- 元素的overflow属性不能是visible
+- 拖拽区域大小17px*17px
+
+> ellipsis文字溢出省略
+- white-space:nowrap;overflow:hidden;
+
+> 锚点、锚链接
+
+- 容器可滚动
+- 锚元素在容器内
+
+>锚点定位的本质
+- 改变容器的滚动高度
+
+> 锚点定位的触发
+
+1. url地址中的锚链与锚点元素；
+2. 可focus的元素处于focus状态
+
+> 选项卡技术（适用于单页应用）
 
